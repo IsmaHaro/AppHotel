@@ -77,11 +77,35 @@ console.log("hola");
 	historial: function(){
 		$("#historial ul").html("");
 		var lista    = "";
+		var contador = 0;
 		var user_id  = firebase.auth().currentUser.uid;
 		var ruta_res = firebase.database().ref('Reservaciones/'+user_id);
 		ruta_res.on('child_added', function(reservacion){
+			contador++;
 			console.log(reservacion.val());
-			$("#historial ul").append('<li>Reservación: '+reservacion.val().tipoHabitacion+' - ' +reservacion.val().fecha+'</li>');
+			var cuerpoPopup = "<h2>Reservación</h2>"
+							 +"<table>"
+							 +"<tr>"
+							 	+"<td>Fecha</td><td> "+reservacion.val().fecha+"</td>"
+							 +"</tr>"
+							 +"<tr>"
+							 	+"<td>Tipo de habitación</td><td> "+reservacion.val().tipoHabitacion+"</td>"
+							 +"</tr>"
+							 +"<tr>"
+							 	+"<td>Número de habitaciones</td><td> "+reservacion.val().numeroHabitaciones+"</td>"
+							 +"</tr>"
+							 +"<tr>"
+							 	+"<td>Número de días</td><td> "+reservacion.val().numeroDias+"</td>"
+							 +"</tr>"
+							 +"<tr>"
+							 	+"<td>Número de personas</td><td> "+reservacion.val().numeroPersonas+"</td>"
+							 +"</tr>"
+							 +"</table>";
+
+			$("#historial ul").append("<li><a href='#reservacion"+contador+"' data-rel='popup' data-position-to='window'> Reservación: "+reservacion.val().tipoHabitacion+" - " +reservacion.val().fecha+"</a></li>");
+			$("#historial ul").append("<div id='reservacion"+contador+"' data-role='popup' data-overlay-theme='b' data-theme='b'><a href='#' data-rel='back' class='ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right'>Close</a>"+cuerpoPopup+"</div>")
+			
+			$("#historial").trigger("create");
 		});
 		
 		window.location.href = "#historial";
