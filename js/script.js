@@ -75,17 +75,15 @@ console.log("hola");
 	},
 
 	historial: function(){
-		var arregloReservaciones = window.localStorage.getItem("reservaciones");
-		var arregloObjetos       = JSON.parse(arregloReservaciones);		
-		var lista                = "";
-
-		arregloObjetos.forEach(function(reservacion){
-console.log(lista);			
-			lista += '<li>Reservación: '+reservacion.tipoHabitacion+' - ' +reservacion.fecha+'</li>';
+		$("#historial ul").html("");
+		var lista    = "";
+		var user_id  = firebase.auth().currentUser.uid;
+		var ruta_res = firebase.database().ref('Reservaciones/'+user_id);
+		ruta_res.on('child_added', function(reservacion){
+			console.log(reservacion.val());
+			$("#historial ul").append('<li>Reservación: '+reservacion.val().tipoHabitacion+' - ' +reservacion.val().fecha+'</li>');
 		});
-
-		$("#historial ul").html(lista);
-
+		
 		window.location.href = "#historial";
 	},
 
@@ -101,7 +99,13 @@ console.log(lista);
 		reservacion.fecha              = new Date();
 		reservacion.fecha              = reservacion.fecha.getDate() + "/" + (parseInt(reservacion.fecha.getMonth()) + 1) + "/" + reservacion.fecha.getFullYear();
 
-		
+		/*
+		 * GUARDAR RESERVACION EN BD
+		 */
+		var user_id  = firebase.auth().currentUser.uid;
+		var ruta_res = firebase.database().ref().child('Reservaciones/'+user_id);
+		ruta_res.push(reservacion);
+
 		/*
 		 * OBTENER DATOS DE LOCALSTORAGE
 		 */
@@ -114,6 +118,7 @@ console.log(lista);
 
 			var arregloCadena = JSON.stringify(arregloReservaciones);
 			window.localStorage.setItem("reservaciones", arregloCadena);
+
 		}else{
 			/*
 			 * Ya hay reservaciones en el almacenamiento
@@ -199,12 +204,6 @@ console.log(lista);
 			}
 
 			fn.nuevoUsuario(nombre, email, password);
-
-			$("#registro .nombre").val("");
-			$("#registro .email").val("");
-			$("#registro .password").val("");
-
-			window.location.href = "#inicio";
 		}
 		catch(error){
 			alert(error);
@@ -220,8 +219,17 @@ console.log(lista);
 		/*
 		 * GUARDAR EN BASE DE DATOS
 		 */
-		firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+		firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
+			$("#registro .nombre").val("");
+			$("#registro .email").val("");
+			$("#registro .password").val("");
+
+			window.location.href = "#inicio";
+
+		}).catch(function(error) {
 			console.log(error);			
+			
+			alert("Error al registrar");
 			var errorCode    = error.code;
 		  	var errorMessage = error.message;
 		});

@@ -10,3 +10,8 @@
 	width: 100%;
 	height: 80vh;
 }
+
+#historial ul li{
+	padding: 10px 25px;
+	border-bottom: 1px solid #ccc;
+}
