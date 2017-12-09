@@ -63,7 +63,7 @@ console.log("hola");
 		 * Unir arreglo de fotos con el arreglo
 		 * de fotos tomadas por el usuario
 		 */
-		 arregloFotos = arregloFotos.concat(rutasFotos);
+		 arregloFotos = arregloFotos.concat(fn.rutasFotos);
 		
 		arregloFotos.forEach(function(nombreFoto){
 			if(bandera){
