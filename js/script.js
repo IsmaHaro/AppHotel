@@ -54,7 +54,14 @@ console.log("hola");
 	},
 	
 	galeria: function(){	
-		var arregloFotos = ["1", "2", "3", "4", "5", "6", "7", "8"];
+		var arregloFotos = ["img/galeria/1.jpg", 
+							"img/galeria/2.jpg",
+							"img/galeria/3.jpg",
+							"img/galeria/4.jpg",
+							"img/galeria/5.jpg",
+							"img/galeria/6.jpg",
+							"img/galeria/7.jpg",
+							"img/galeria/8.jpg"];
 		var tabla        = "";
 		var cajasFotos   = "";
 		var bandera      = 1;
@@ -68,15 +75,15 @@ console.log("hola");
 
 		arregloFotos.forEach(function(nombreFoto){
 			if(bandera){
-				tabla  += "<div class='ui-block-a'> <a href='#"+nombreFoto+"' data-rel='popup' data-position-to='window'><img class='foto-galeria' src='img/galeria/"+nombreFoto+".jpg'></a> </div>"
+				tabla  += "<div class='ui-block-a'> <a href='#"+nombreFoto+"' data-rel='popup' data-position-to='window'><img class='foto-galeria' src='"+nombreFoto+"'></a> </div>"
 				bandera = 0;
 
 			}else{
-				tabla  += "<div class='ui-block-b'> <a href='#"+nombreFoto+"' data-rel='popup' data-position-to='window'><img class='foto-galeria' src='img/galeria/"+nombreFoto+".jpg'></a> </div>"
+				tabla  += "<div class='ui-block-b'> <a href='#"+nombreFoto+"' data-rel='popup' data-position-to='window'><img class='foto-galeria' src='"+nombreFoto+"'></a> </div>"
 				bandera = 1;
 			}
 			
-			cajasFotos += "<div id='"+nombreFoto+"' data-role='popup' data-overlay-theme='b' data-theme='b'><a href='#' data-rel='back' class='ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right'>Close</a> <img src='img/galeria/"+nombreFoto+".jpg'> </div>"
+			cajasFotos += "<div id='"+nombreFoto+"' data-role='popup' data-overlay-theme='b' data-theme='b'><a href='#' data-rel='back' class='ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right'>Close</a> <img src='"+nombreFoto+"'> </div>"
 		});
 
 		tabla += cajasFotos;
