@@ -6,7 +6,7 @@ var camara = {
 	},
 	error: function(error){
 		alert("Error al tomar foto, mensaje: "+error);
-	}
+	},
 	tomarFoto: function(){
 		navigator.device.capture.captureImage(camara.exito, camara.error, {limit: 1});
 	}
