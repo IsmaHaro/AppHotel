@@ -49,7 +49,7 @@ var fn={
 	},
 
 	ubicacion: function(){
-console.log("hola");		
+alert("ubicacion");
 		geo.obtenerPosicion();
 		
 		$("#ubicacion").trigger("create");
@@ -282,7 +282,7 @@ console.log("hola");
 };
 
 //COMPILAR PARA CELULAR
-fn.deviceready();
+//fn.deviceready();
 
 //PRUEBAS EN NAVEGADOR
-//fn.init();
+fn.init();
