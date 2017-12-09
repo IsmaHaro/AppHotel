@@ -63,8 +63,9 @@ console.log("hola");
 		 * Unir arreglo de fotos con el arreglo
 		 * de fotos tomadas por el usuario
 		 */
-		 arregloFotos = arregloFotos.concat(fn.rutasFotos);
-		
+		arregloFotos = arregloFotos.concat(fn.rutasFotos);
+		alert(fn.rutasFotos);
+
 		arregloFotos.forEach(function(nombreFoto){
 			if(bandera){
 				tabla  += "<div class='ui-block-a'> <a href='#"+nombreFoto+"' data-rel='popup' data-position-to='window'><img class='foto-galeria' src='img/galeria/"+nombreFoto+".jpg'></a> </div>"
