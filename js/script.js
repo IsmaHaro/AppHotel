@@ -1,6 +1,16 @@
 var fn={
 	rutasFotos: [],
 	init:function(){
+		fn.initPushwoosh();
+		pushwoosh.registerDevice(
+			function(status) {
+				var pushToken = status.pushToken;
+		    	// handle successful registration here
+		  },
+		  function(status) {
+		    // handle registration error here
+		  }
+		);
 		$("#btnRegistrar").tap(fn.registrarUsuario);
 		$("#formulario1 a").tap(fn.reserva1);
 		$("#btnSiguiente").tap(fn.siguienteReserva1);
@@ -11,10 +21,32 @@ var fn={
 		$("#btnIniciarSesion").tap(fn.iniciarSesion);
 		$("#btnSalir").tap(fn.salir);
 		$("#btnFoto").tap(fn.tomarFoto);
+
+		document.addEventListener('push-notification', function(event) {
+			var notification = event.notification;
+			// handle push open here
+		});
 	},
 
 	deviceready:function(){
 		document.addEventListener("deviceready",fn.init,false);
+	},
+
+	initPushwoosh: function() {
+		var pushwoosh = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+
+	  // Should be called before pushwoosh.onDeviceReady
+	  document.addEventListener('push-notification', function(event) {
+			var notification = event.notification;
+			// handle push open here
+		});
+	  
+		// Initialize Pushwoosh. This will trigger all pending push notifications on start.
+		pushwoosh.onDeviceReady({
+	    appid: "AF7DB-02C1D",
+			projectid: "GOOGLE_PROJECT_NUMBER",
+			serviceName: "MPNS_SERVICE_NAME"
+		});
 	},
 
 	tomarFoto: function(){
@@ -71,7 +103,6 @@ console.log("hola");
 		 * de fotos tomadas por el usuario
 		 */
 		arregloFotos = arregloFotos.concat(fn.rutasFotos);
-		alert(fn.rutasFotos);
 
 		arregloFotos.forEach(function(nombreFoto){
 			if(bandera){
