@@ -1,4 +1,5 @@
 var fn={
+	rutasFotos: [],
 	init:function(){
 		$("#btnRegistrar").tap(fn.registrarUsuario);
 		$("#formulario1 a").tap(fn.reserva1);
@@ -9,12 +10,16 @@ var fn={
 		$("#btnUbicacion").tap(fn.ubicacion);
 		$("#btnIniciarSesion").tap(fn.iniciarSesion);
 		$("#btnSalir").tap(fn.salir);
+		$("#btnFoto").tap(fn.tomarFoto);
 	},
 
 	deviceready:function(){
 		document.addEventListener("deviceready",fn.init,false);
 	},
 
+	tomarFoto: function(){
+		camara.tomarFoto();
+	},
 	salir: function(){
 		firebase.auth().signOut().then(function() {
 		 	window.location.href = "#registro";
@@ -53,6 +58,12 @@ console.log("hola");
 		var tabla        = "";
 		var cajasFotos   = "";
 		var bandera      = 1;
+
+		/*
+		 * Unir arreglo de fotos con el arreglo
+		 * de fotos tomadas por el usuario
+		 */
+		 arregloFotos = arregloFotos.concat(rutasFotos);
 		
 		arregloFotos.forEach(function(nombreFoto){
 			if(bandera){
