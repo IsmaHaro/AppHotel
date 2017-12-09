@@ -11,6 +11,9 @@ var fn={
 		$("#btnIniciarSesion").tap(fn.iniciarSesion);
 		$("#btnSalir").tap(fn.salir);
 		$("#btnFoto").tap(fn.tomarFoto);
+		document.addEventListener("offline", function(){
+			alert("Te quedaste sin conexión");
+		}, false);
 	},
 
 	deviceready:function(){
@@ -279,7 +282,7 @@ console.log("hola");
 };
 
 //COMPILAR PARA CELULAR
-//fn.deviceready();
+fn.deviceready();
 
 //PRUEBAS EN NAVEGADOR
-fn.init();
+//fn.init();
